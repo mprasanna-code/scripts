@@ -1,0 +1,16 @@
+sudo apt-get install apt-transport-https ca-certificates curl -y 
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >>  /etc/apt/sources.list.d/kubernetes.list
+echo "deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe" >> /etc/apt/sources.list
+echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe" >> /etc/apt/sources.list 
+sudo apt-get update -y
+sudo apt-get install -y kubectl=1.7.4-00
+sudo apt-get install -y kubelet=1.7.4-00
+sudo apt-get install -y kubeadm=1.7.4-00
+wget https://launchpad.net/~ubuntu-security-proposed/+archive/ubuntu/ppa/+build/7110687/+files/libgcrypt11_1.5.4-2ubuntu1.1_amd64.deb
+sudo dpkg -i libgcrypt11_1.5.4-2ubuntu1.1_amd64.deb
+sudo apt-get install -y docker-engine
+systemctl start docker.service
+systemctl stop docker.service
+echo "{ \"insecure-registries\" : [ \"10.84.14.144:5000\" ] }" >> /etc/docker/daemon.json
+systemctl start docker.service 
